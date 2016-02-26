@@ -1,31 +1,35 @@
 == README
+<a href='https://semaphoreci.com/kolosek/basic'> <img src='https://semaphoreci.com/api/v1/kolosek/basic/branches/master/badge.svg' alt='Build Status'></a>
 
+Basic Rails 4 application. 
 
-Basic Dashboard
+Deployable to Heroku, includes Redis, Mail, Bootstrap.
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+The view is implemented using [Bootstrap 3](http://getbootstrap.com/).
 
-Things you may want to cover:
+### Gemfile
 
-* Ruby version
+- [pg](http://rubygems.org/gems/pg) for PostgreSQL
 
-* System dependencies
+For testing and development:
 
-* Configuration
+- [Rspec](https://github.com/dchelimsky/rspec)
+- [Database_cleaner](https://github.com/bmabey/database_cleaner)
+- [Factory Girl](https://github.com/thoughtbot/factory_girl_rails)
+- [Shoulda](https://github.com/thoughtbot/shoulda)
 
-* Database creation
+### Setting up
 
-* Database initialization
+- Make sure you have Ruby version from Gemfile.
+- Please install Redis
+- Install dependencies from Gemfile: `bundle install --path .bundle`.
+- For Databes export environment variables `DATABASE_PASSWORD` and `DATABASE_USERNAME`.
+- $ bundle exec rake db:create
+- $ bundle exec rake db:migrate
+- $ bundle exec rake db:test:prepare
+- Make sure tests pass first
+- $ bundle exec rspec spec/
 
-* How to run the test suite
+### License
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+Basic is made by [Kolosek IT](http://kolosek.com)© 2011-2016 . This repo is free to be used.

@@ -1,5 +1,5 @@
 == README
-<a href='https://semaphoreci.com/kolosek/basic'> <img src='https://semaphoreci.com/api/v1/kolosek/basic/branches/master/badge.svg' alt='Build Status'></a>
+[![Build Status](https://semaphoreci.com/api/v1/kolosek/basic/branches/master/badge.svg)](https://semaphoreci.com/kolosek/basic)
 
 Basic Rails 4 application. 
 

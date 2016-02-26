@@ -17,18 +17,4 @@ ActiveRecord::Schema.define(version: 20160224103648) do
   enable_extension "plpgsql"
   enable_extension "hstore"
 
-  create_table "refferals", force: :cascade do |t|
-    t.integer  "inviter_id"
-    t.integer  "invitee_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "subscribers", force: :cascade do |t|
-    t.string   "email"
-    t.string   "refferal_code"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-  end
-
 end

@@ -1,4 +1,3 @@
-== README
 <a href='https://semaphoreci.com/kolosek/basic'> <img src='https://semaphoreci.com/api/v1/kolosek/basic/branches/master/badge.svg' alt='Build Status'></a>
 
 Basic Rails 4 application. 

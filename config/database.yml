@@ -1,23 +1,19 @@
 default: &default
-  adapter: postgresql
-  encoding: unicode
-
-  username: <%= ENV['DATABASE_USERNAME'] %>
-  password: <%= ENV['DATABASE_PASSWORD'] %>
+  adapter: sqlite3
   pool: 5
-  host: localhost
+  timeout: 5000
 
 development:
   <<: *default
-  database: basic_development
+  database: db/development.sqlite3
 
-
-test: &test
+# Warning: The database defined as "test" will be erased and
+# re-generated from your development database when you run "rake".
+# Do not set this db to the same as development or production.
+test:
   <<: *default
-  database: basic_test
+  database: db/test.sqlite3
 
 production:
   <<: *default
-  pool: <%= ENV["DB_POOL"] || ENV['MAX_THREADS'] || 5 %>
-
-cucumber:
+  database: db/production.sqlite

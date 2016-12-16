@@ -1,4 +1,13 @@
 Rails.application.routes.draw do
+  
+  root to: 'pages#index'
 
-  root to: 'pages#new'
+  devise_for :users
+
+  resources :users do
+  	resources :articles do
+      resources :comments
+  	end
+  end
+
 end

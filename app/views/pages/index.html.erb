@@ -1,0 +1,22 @@
+<% content_for :top_content do %>
+  <div class="jumbotron">
+    <div class="container">
+      <h2>Welcome, read or post articles for free!</h2>
+         <% unless @articles.empty? %>
+            <div id="articles">
+  			  <%= render @articles %>
+		    </div>
+         <% end %>
+	     <% if !user_signed_in? %>
+		      <p>Register to post articles.</p>
+		      <p>
+		        <%= link_to 'Register', new_user_registration_path, class: 'btn btn-primary btn-lg' %>
+		      </p>
+	      <% else %>
+		      <p>
+		        <%= link_to 'New article', new_user_article_path(current_user.id), class: 'btn btn-primary btn-lg' %> 
+		      </p>
+	      <% end %>
+    </div>
+  </div>
+<% end %>

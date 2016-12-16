@@ -5,6 +5,8 @@ require File.expand_path('../../config/environment', __FILE__)
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 require 'spec_helper'
 require 'rspec/rails'
+#require 'support/factory_girl'
+require 'factory_girl_rails'
 # Add additional requires below this line. Rails is not loaded until this point!
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
@@ -54,18 +56,4 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
-    # factory girl syntactic sugar
-  config.include FactoryGirl::Syntax::Methods
-
-  config.include Rails.application.routes.url_helpers
-end
-
-Shoulda::Matchers.configure do |config|
-  config.integrate do |with|
-    # Test framework:
-    with.test_framework :rspec
-
-    # All libraries:
-    with.library :rails
-  end
 end

@@ -1,17 +1,10 @@
 class ArticlesController < ApplicationController
-  include ArticlesHelper
-
+  before_action :find_article, only: [:show, :destroy]
+  
   def show 
-    @article = Article.find(params[:id])
-    @user = User.find(@article.user_id)
-    @comments = Comment.where(article_id: params[:id])
-    @comment = Comment.new
   end 
 
   def new
-    @article = Article.new
-    @user = current_user
-    @article.user_id = @user.id
   end
 
   def create
@@ -22,9 +15,8 @@ class ArticlesController < ApplicationController
   end
 
   def destroy 
-    @article = Article.find(params[:id])
-    if current_user.id == @article.user_id
-      send_mails(@article) if @article.destroy
+    if @article.author?(current_user)
+      @article.destroy
     end
     redirect_to root_path, notice: 'Article was successfully removed.'
   end
@@ -33,5 +25,9 @@ class ArticlesController < ApplicationController
 
     def article_params
       params.require(:article).permit(:title, :description, :user_id)
+    end
+
+    def find_article
+      @article = Article.find(params[:id])
     end
 end

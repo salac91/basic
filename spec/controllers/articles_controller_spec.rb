@@ -19,7 +19,7 @@ RSpec.describe ArticlesController, type: :controller do
     end
 
   end
-  
+
   describe "DELETE destroy" do
     it "deletes the article" do
        expect{

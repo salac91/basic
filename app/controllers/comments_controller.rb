@@ -1,4 +1,5 @@
 class CommentsController < ApplicationController
+  before_action :find_comment, only: [:abuse]
 
   def create
     @comment = Comment.new(
@@ -10,12 +11,16 @@ class CommentsController < ApplicationController
             params[:article_id])
   end
 
-  def update 
-    @comment = Comment.find(params[:id])
-    @comment.update(abuse_count: @comment.abuse_count + 1)
-    @comment.overabused?
+  def abuse 
+    @comment.abuse!
+    @comment.overabused? 
     redirect_to user_article_path(params[:user_id], 
             params[:article_id])
-  end 
+  end
 
+  private 
+
+    def find_comment
+      @comment = Comment.find(params[:id])
+    end
 end

@@ -1,17 +1,17 @@
 <h1><%= @article.title %> (<%= @article.count_comments %>) </h1>
 <p><%= @article.description %></p><br>
 <% if user_signed_in? %>
-  <% if current_user.id == @article.user_id %>
+  <% if @article.author?(current_user) %>
     <%= link_to 'Remove', user_article_path(current_user.id, @article.id), :method => :delete, class: 'btn btn-danger' %>
   <% end %>
 <% end %>
 <h3>Comments:</h3>
-<% @comments.each do |comment| %>
+<% @article.comments.each do |comment| %>
   <p>
     <b><%= authors_name(comment.author_id) %></b><br>
     <%= comment.body %>
-    <% if current_user.id != comment.author_id %>
-      <br><%= link_to 'abuse', user_article_comment_path(current_user.id, @article.id, comment.id), :method => :put %> 
+    <% if !comment.author?(current_user) %>
+      <br><%= link_to 'abuse', abuse_user_article_comment_path(@article.user_id, @article.id, comment.id), :method => :put %> 
       <%= comment.abuse_count %> 
     <% end %>
   </p><br>

@@ -4,8 +4,22 @@ class Article < ApplicationRecord
   
   validates :title, presence: true
   validates :description, presence: true
+  
+  after_destroy :notify
 
   def count_comments
-    Article.joins(:comments).where(id: self.id).count
+    self.comments.count
+  end
+
+  def author?(user)
+    self.user_id == user.id
+  end
+  
+  private 
+
+  def notify
+    self.comments.uniq { |c| c.author_id }.each do |comment|
+      NotificationMailer.article_removed(c.author).deliver
+    end
   end
 end

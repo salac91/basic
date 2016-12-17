@@ -6,7 +6,11 @@ Rails.application.routes.draw do
 
   resources :users do
   	resources :articles do
-      resources :comments
+      resources :comments do
+        member do
+          put 'abuse'
+        end
+      end
   	end
   end
 

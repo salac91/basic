@@ -19,7 +19,7 @@ class Article < ApplicationRecord
 
   def notify
     self.comments.uniq { |c| c.author_id }.each do |comment|
-      NotificationMailer.article_removed(c.author).deliver
+      NotificationMailer.article_removed(c.author,self).deliver
     end
   end
 end

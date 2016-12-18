@@ -1,35 +1,74 @@
 require 'rails_helper'
 
 RSpec.describe Comment, type: :model do
-  it 'comment is valid' do
-    expect(FactoryGirl.build_stubbed(:comment)).to be_valid
+
+  describe "association" do 
+    it { should belong_to(:article) }
+  end 
+
+  describe "validations" do
+    it { should validate_presence_of :body}
+    it { should validate_presence_of :author_id}
   end
 
-  it 'comment with no body is invalid' do
-    expect(FactoryGirl.build_stubbed(:comment, body: nil)).to_not be_valid
+  describe "create comment" do
+    it 'comment is valid' do
+      expect(FactoryGirl.build_stubbed(:comment)).to be_valid
+    end
   end
 
-  it 'comment with no author is invalid' do
-    expect(FactoryGirl.build_stubbed(:comment, author_id: nil)).to_not be_valid
+  describe "#abuse!" do
+    context "comment updated correctly" do
+      it "returns true and abuse_count incremented" do
+        comment = FactoryGirl.create(:comment)
+
+        expect(comment.abuse_count).to eq 0
+        expect(comment.abuse!).to eq(true)
+        expect(comment.abuse_count).to eq 1
+      end
+    end
   end
 
-  it { should belong_to(:article) }
-  describe "public method" do
-  	let!(:comment1) { FactoryGirl.create(:comment, abuse_count: 6) }
-  	let!(:user) { FactoryGirl.create(:user, email: "dule@gmail.com") }
-  	let!(:article) { FactoryGirl.create(:article, user_id: user) }
-  	let!(:comment2) { FactoryGirl.create(:comment, article_id: article) }
+  describe "#overabused?" do
+    context "comment is overabused" do
+      it "remove comment" do
+        comment = FactoryGirl.create(:comment, abuse_count: 4)
+        comment.overabused?
+       
+        expect(Comment.where(id: comment.id)).to_not exist
+      end
+    end
 
-	  context "executes method correctly" do 
-	      context "comment overabused?" do
-	        it "when is equal" do
-	          expect(comment1.overabused?).to eq(nil)
-	     	end
-	     	it "when is not equal" do
-	          expect(comment2.overabused?).to_not eq(nil)
-	     	end
-	      end
-	   end
-   end
+    context "comment is not overabused" do
+      it "maintain comment" do
+        comment = FactoryGirl.create(:comment, abuse_count: 1)
+        comment.overabused?
+       
+        expect(Comment.where(id: comment.id)).to exist
+      end
+    end
+
+  end
+
+  describe "#author?" do
+    context "is author" do
+      it "returns true" do
+        comment = FactoryGirl.create(:comment)
+        current_user = comment.author
+
+        expect(comment.author?(current_user)).to eq(true)
+      end
+    end
+
+    context "is not author" do
+      it "returns false" do
+        comment = FactoryGirl.create(:comment)
+        current_user = FactoryGirl.create(:user, email: "pera@gmail.com")
+
+        expect(comment.author?(current_user)).to eq(false)
+      end
+    end
+
+  end 
 
 end

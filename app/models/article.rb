@@ -2,10 +2,10 @@ class Article < ApplicationRecord
   belongs_to :user
   has_many :comments, dependent: :destroy
   
+  after_destroy :notify
+
   validates :title, presence: true
   validates :description, presence: true
-  
-  after_destroy :notify
 
   def count_comments
     self.comments.count

@@ -10,9 +10,11 @@
   <p>
     <b><%= authors_name(comment.author_id) %></b><br>
     <%= comment.body %>
-    <% if !comment.author?(current_user) %>
-      <br><%= link_to 'abuse', abuse_user_article_comment_path(@article.user_id, @article.id, comment.id), :method => :put %> 
-      <%= comment.abuse_count %> 
+    <% if user_signed_in? %>
+      <% if !comment.author?(current_user) %>
+        <br><%= link_to 'abuse', abuse_user_article_comment_path(@article.user_id, @article.id, comment.id), :method => :put %> 
+        <%= comment.abuse_count %> 
+      <% end %>
     <% end %>
   </p><br>
 <% end %>

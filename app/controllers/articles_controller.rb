@@ -9,8 +9,9 @@ class ArticlesController < ApplicationController
 
   def create
     @article = Article.new(article_params)
-    @article.save
-    redirect_to root_path, notice: 'Article was successfully created.'
+    if @article.save
+      redirect_to root_path, notice: 'Article was successfully created.'
+    end  
   end
 
   def destroy 

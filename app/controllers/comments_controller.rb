@@ -5,14 +5,14 @@ class CommentsController < ApplicationController
     @comment = Comment.new(comment_params)
     @comment.save
     redirect_to user_article_path(params[:user_id], 
-      params[:article_id])
+      params[:article_id]), notice: 'Comment was successfully created.'
   end
 
   def abuse 
     @comment.abuse!
     @comment.overabused? 
     redirect_to user_article_path(params[:user_id], 
-      params[:article_id])
+      params[:article_id]), notice: 'Comment was removed because overabused.'
   end
 
   private 

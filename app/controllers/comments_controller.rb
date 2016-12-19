@@ -2,10 +2,7 @@ class CommentsController < ApplicationController
   before_action :find_comment, only: [:abuse]
 
   def create
-    @comment = Comment.new(
-      body: params[:comment][:body],
-      author_id: current_user.id,
-      article_id: params[:article_id])
+    @comment = Comment.new(comment_params)
     @comment.save
     redirect_to user_article_path(params[:user_id], 
             params[:article_id])
@@ -19,6 +16,10 @@ class CommentsController < ApplicationController
   end
 
   private 
+
+    def comment_params
+      params.require(:comment).permit(:body, :author_id, :article_id)
+    end
 
     def find_comment
       @comment = Comment.find(params[:id])

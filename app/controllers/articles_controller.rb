@@ -9,7 +9,6 @@ class ArticlesController < ApplicationController
 
   def create
     @article = Article.new(article_params)
-    @article.user_id = current_user.id
     @article.save
     redirect_to root_path, notice: 'Article was successfully created.'
   end

@@ -47,7 +47,6 @@ RSpec.describe Comment, type: :model do
         expect(Comment.where(id: comment.id)).to exist
       end
     end
-
   end
 
   describe "#author?" do
@@ -68,7 +67,6 @@ RSpec.describe Comment, type: :model do
         expect(comment.author?(current_user)).to eq(false)
       end
     end
-
   end 
 
 end

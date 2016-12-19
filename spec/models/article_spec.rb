@@ -36,7 +36,6 @@ RSpec.describe Article, type: :model do
         expect(article.count_comments).to eq 0
       end
     end
-
   end
 
 end

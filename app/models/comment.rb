@@ -1,8 +1,9 @@
 class Comment < ApplicationRecord
   belongs_to :article
+  belongs_to :user
 
   validates :body, presence: true
-  validates :author_id, presence: true
+  validates :user_id, presence: true
 
   def abuse!
   	self.abuse_count+= 1 
@@ -14,7 +15,7 @@ class Comment < ApplicationRecord
   end
 
   def author?(user)
-    self.author_id == user.id
+    self.user_id == user.id
   end
   
 end

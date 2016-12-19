@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 20161215162421) do
 
   create_table "comments", force: :cascade do |t|
     t.text     "body"
-    t.integer  "author_id"
+    t.integer  "user_id"
     t.integer  "article_id"
     t.integer  "abuse_count", default: 0
     t.datetime "created_at",              null: false

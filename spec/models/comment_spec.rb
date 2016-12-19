@@ -2,13 +2,14 @@ require 'rails_helper'
 
 RSpec.describe Comment, type: :model do
 
-  describe "association" do 
+  describe "associations" do 
     it { should belong_to(:article) }
+    it { should belong_to(:user) }
   end 
 
   describe "validations" do
     it { should validate_presence_of :body}
-    it { should validate_presence_of :author_id}
+    it { should validate_presence_of :user_id}
   end
 
   describe "create comment" do
@@ -53,7 +54,7 @@ RSpec.describe Comment, type: :model do
     context "is author" do
       it "returns true" do
         comment = FactoryGirl.create(:comment)
-        current_user = comment.author
+        current_user = comment.user
 
         expect(comment.author?(current_user)).to eq(true)
       end

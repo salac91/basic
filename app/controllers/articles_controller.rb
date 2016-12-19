@@ -16,8 +16,10 @@ class ArticlesController < ApplicationController
   def destroy 
     if @article.author?(current_user)
       @article.destroy
+      redirect_to root_path, notice: 'Article was successfully removed.'
+    else
+      redirect_to root_path, alert: 'Only article author can remove it!'
     end
-    redirect_to root_path, notice: 'Article was successfully removed.'
   end
 
   private 

@@ -38,4 +38,25 @@ RSpec.describe Article, type: :model do
     end
   end
 
+  describe "#author?" do
+    before(:each) do
+      @article = FactoryGirl.create(:article)
+    end
+    context "is author" do
+      it "returns true" do
+        current_user = @article.user
+
+        expect(@article.author?(current_user)).to eq(true)
+      end
+    end
+
+    context "is not author" do
+      it "returns false" do
+        current_user = FactoryGirl.create(:user, email: "zoran@gmail.com")
+
+        expect(@article.author?(current_user)).to eq(false)
+      end
+    end
+  end 
+
 end

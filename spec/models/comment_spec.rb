@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Comment, type: :model do
-
+  
   describe "associations" do 
     it { should belong_to(:article) }
     it { should belong_to(:user) }
@@ -51,21 +51,22 @@ RSpec.describe Comment, type: :model do
   end
 
   describe "#author?" do
+     before(:each) do
+       @comment = FactoryGirl.create(:comment)
+      end
     context "is author" do
       it "returns true" do
-        comment = FactoryGirl.create(:comment)
-        current_user = comment.user
+        current_user = @comment.user
 
-        expect(comment.author?(current_user)).to eq(true)
+        expect(@comment.author?(current_user)).to eq(true)
       end
     end
 
     context "is not author" do
       it "returns false" do
-        comment = FactoryGirl.create(:comment)
         current_user = FactoryGirl.create(:user, email: "pera@gmail.com")
 
-        expect(comment.author?(current_user)).to eq(false)
+        expect(@comment.author?(current_user)).to eq(false)
       end
     end
   end 

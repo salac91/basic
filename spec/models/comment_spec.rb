@@ -10,6 +10,7 @@ RSpec.describe Comment, type: :model do
   describe "validations" do
     it { should validate_presence_of :body}
     it { should validate_presence_of :user_id}
+    it { should validate_presence_of :article_id}
   end
 
   describe "create comment" do
@@ -51,9 +52,9 @@ RSpec.describe Comment, type: :model do
   end
 
   describe "#author?" do
-     before(:each) do
-       @comment = FactoryGirl.create(:comment)
-      end
+    before(:each) do
+      @comment = FactoryGirl.create(:comment)
+    end
     context "is author" do
       it "returns true" do
         current_user = @comment.user

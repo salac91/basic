@@ -4,6 +4,7 @@ class Comment < ApplicationRecord
 
   validates :body, presence: true
   validates :user_id, presence: true
+  validates :article_id, presence: true
 
   def abuse!
   	self.abuse_count+= 1 
